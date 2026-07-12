@@ -27,4 +27,43 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
   }
+
+  // Contact form -> Formspree (AJAX submit, no page redirect)
+  const contactForm = document.querySelector(".contact-form");
+  const statusEl = document.getElementById("form-status");
+  if (contactForm && statusEl) {
+    contactForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const submitBtn = contactForm.querySelector("button[type='submit']");
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+      statusEl.textContent = "";
+      statusEl.className = "form-status";
+
+      try {
+        const response = await fetch(contactForm.action, {
+          method: "POST",
+          body: new FormData(contactForm),
+          headers: { Accept: "application/json" },
+        });
+
+        if (response.ok) {
+          contactForm.reset();
+          statusEl.textContent = "Thanks — your message is on its way. I'll get back to you soon.";
+          statusEl.className = "form-status success";
+        } else {
+          const data = await response.json().catch(() => ({}));
+          const detail = data.errors ? data.errors.map((err) => err.message).join(", ") : "";
+          statusEl.textContent = detail || "Something went wrong. Please email me directly instead.";
+          statusEl.className = "form-status error";
+        }
+      } catch (err) {
+        statusEl.textContent = "Something went wrong. Please email me directly instead.";
+        statusEl.className = "form-status error";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send message";
+      }
+    });
+  }
 });

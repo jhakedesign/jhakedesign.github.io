@@ -640,6 +640,15 @@ h3 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
 }
 .field textarea { resize: vertical; min-height: 120px; height: 120px; }
 .contact-form .btn { justify-self: start; margin-top: 4px; }
+.contact-form .btn:disabled { opacity: 0.6; cursor: default; transform: none; }
+.form-status {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  margin: 4px 0 0;
+  min-height: 1.2em;
+}
+.form-status.success { color: var(--teal-deep); }
+.form-status.error { color: #b3392f; }
 
 .social-row {
   display: flex;
