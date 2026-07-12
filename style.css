@@ -608,6 +608,7 @@ h3 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
   display: grid;
   grid-template-columns: 1.1fr 1fr;
   gap: 60px;
+  align-items: start;
 }
 .contact-details dl {
   margin: 30px 0 0;
@@ -618,9 +619,9 @@ h3 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
 .contact-details dd { margin: 4px 0 0; font-size: 1.2rem; font-weight: 600; }
 .contact-details dd a:hover { color: var(--teal-deep); }
 
-.contact-form { display: grid; gap: 16px; }
-.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.field { display: grid; gap: 6px; }
+.contact-form { display: grid; gap: 16px; align-content: start; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start; }
+.field { display: grid; gap: 6px; align-content: start; }
 .field label { font-family: var(--mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--gray); }
 .field input, .field textarea {
   border: 2px solid var(--ink);
@@ -628,14 +629,16 @@ h3 { font-size: clamp(1.2rem, 2.4vw, 1.6rem); }
   padding: 10px 12px;
   font-family: var(--body);
   font-size: 0.95rem;
+  line-height: 1.4;
   color: var(--ink);
   width: 100%;
+  height: auto;
 }
 .field input:focus, .field textarea:focus {
   outline: 3px solid var(--gold);
   outline-offset: 1px;
 }
-.field textarea { resize: vertical; min-height: 120px; }
+.field textarea { resize: vertical; min-height: 120px; height: 120px; }
 .contact-form .btn { justify-self: start; margin-top: 4px; }
 
 .social-row {
