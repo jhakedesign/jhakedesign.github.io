@@ -66,4 +66,41 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+
+  // Case-study gallery lightbox
+  const galleryButtons = document.querySelectorAll(".cs-gallery button");
+  if (galleryButtons.length) {
+    const overlay = document.createElement("div");
+    overlay.className = "lightbox-overlay hidden";
+    overlay.innerHTML = '<button type="button" class="lightbox-close" aria-label="Close image">&times;</button><img alt="">';
+    document.body.appendChild(overlay);
+    const overlayImg = overlay.querySelector("img");
+    const closeBtn = overlay.querySelector(".lightbox-close");
+
+    function openLightbox(src, alt) {
+      overlayImg.src = src;
+      overlayImg.alt = alt || "";
+      overlay.classList.remove("hidden");
+      document.body.style.overflow = "hidden";
+      closeBtn.focus();
+    }
+    function closeLightbox() {
+      overlay.classList.add("hidden");
+      overlayImg.src = "";
+      document.body.style.overflow = "";
+    }
+
+    galleryButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        const img = btn.querySelector("img");
+        openLightbox(btn.dataset.full || img.src, img.alt);
+      });
+    });
+    overlay.addEventListener("click", (e) => {
+      if (e.target === overlay || e.target === closeBtn) closeLightbox();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !overlay.classList.contains("hidden")) closeLightbox();
+    });
+  }
 });
